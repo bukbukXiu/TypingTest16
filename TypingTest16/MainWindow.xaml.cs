@@ -50,6 +50,12 @@ namespace TypingTest16
             buttonStart.IsEnabled = false;  //Start button is disabled unless user selects a text fragment
             textBoxSource.Text = "Choose one of the excerpts below"; //Message for the user
         }
+
+        private void check()
+        {
+            ResultWindow resultWindow = new ResultWindow(); //create an instance of ResultWindow
+            resultWindow.Show(); //show the window to the user
+        }
         #endregion
 
         #region Event Handlers
@@ -58,6 +64,7 @@ namespace TypingTest16
             labelTimer.Text = time.ToString("c");   //"c" format specifier tells ToString method to use the standard hh:mm:ss form
             if (time.CompareTo(TimeSpan.FromSeconds(0)) == 0)
             {
+                check();
                 dispatcherTimer.Stop(); //if time object holds 0, stop the test
                 defaultValues(); // test is over. Reinitialize the application
             }
@@ -80,6 +87,7 @@ namespace TypingTest16
 
         private void buttonStop_Click(object sender, RoutedEventArgs e)
         {
+            check();
             dispatcherTimer.Stop();
             defaultValues();
         }
