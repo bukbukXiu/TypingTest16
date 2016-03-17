@@ -31,6 +31,7 @@ namespace TypingTest16
             defaultValues();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick); //specifies the method that will handle the Tick event
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1); //specifies the time interval between two timer ticks
+            textBoxInput.CommandBindings.Add(new CommandBinding(ApplicationCommands.Paste, disablePaste)); //disabling Paste for input TextBox
         }
 
 
@@ -54,7 +55,63 @@ namespace TypingTest16
         private void check()
         {
             ResultWindow resultWindow = new ResultWindow(); //create an instance of ResultWindow
-            resultWindow.Show(); //show the window to the user
+            string[] sourceTextData = textBoxSource.Text.Split(' ');    //an array of words in the SOURCE text box
+            string[] userTextData = textBoxInput.Text.Split(' ');   //an array of user-entered words
+            int typos = 0;  //this variable will store the quantity of mistyped words
+            int extraTypos = Math.Max(sourceTextData.Length, userTextData.Length) - Math.Min(sourceTextData.Length, userTextData.Length);
+            int minWords = Math.Min(sourceTextData.Length, userTextData.Length);
+            for (int i = 0; i < minWords; i++)
+            {
+                if (userTextData[i] != sourceTextData[i])
+                {
+                    typos++;    //current word is wrong.
+                    AppendText(resultWindow.richTextBoxDiff, userTextData[i] + ' ', "red"); // if the processed word is differen from the one in the source text, red colour is applied
+                }
+                else
+                {
+                    AppendText(resultWindow.richTextBoxDiff, userTextData[i] + ' ', "green");   // if the processed word is right, green colour is applied
+                }
+            }
+            int totalTypos = typos + extraTypos;
+            double mistakeRate = Math.Round((double)(totalTypos / (double)sourceTextData.Length) * 100.0, 2); //Math.Round is used to show only two fractional digits 
+            resultWindow.labelMistakeRate.Content = mistakeRate.ToString() + "%";
+            TimeSpan timeSpent = testTime - time;   //timeSpent will store the time spent during the test
+            double typingSpeed = Math.Round((double)typedWords() / timeSpent.TotalMinutes, 2);
+            resultWindow.labelSpeed.Content = typingSpeed.ToString() + " words/min";
+            resultWindow.labelTimeSpent.Content = timeSpent;
+            resultWindow.Show();    //show the window to the user
+        }
+
+        private void AppendText(RichTextBox box, string text, string color)
+        {
+            BrushConverter bc = new BrushConverter();
+            TextRange tr = new TextRange(box.Document.ContentEnd, box.Document.ContentEnd);
+            tr.Text = text;
+            tr.ApplyPropertyValue(TextElement.ForegroundProperty, bc.ConvertFromString(color));
+        }
+
+        private int typedWords()
+        {
+            if (textBoxInput.Text == "") return 0;
+            else return textBoxInput.Text.Split(' ').Length;
+        }
+
+        private void easyCheck()
+        {
+            TimeSpan timeSpent = testTime - time;   //timeSpent will store the time spent during the test
+            string[] userTextData = textBoxInput.Text.Split(' ');   //an array of words
+            ResultWindow resultWindow = new ResultWindow();
+            resultWindow.labelMistakeRate.Content = "0%"; //text is identical so there's no mistakes
+            double typingSpeed = Math.Round(typedWords() / timeSpent.TotalMinutes, 2);  //Math.Round is used to show only two fractional digits 
+            resultWindow.labelSpeed.Content = typingSpeed.ToString() + " words/min";
+            resultWindow.labelTimeSpent.Content = timeSpent;
+            AppendText(resultWindow.richTextBoxDiff, textBoxInput.Text, "green"); //AppendText is used to make the text green
+            resultWindow.Show();
+        }
+
+        private void disablePaste(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
         }
         #endregion
 
@@ -116,6 +173,16 @@ namespace TypingTest16
                 case 3:
                     textBoxSource.Text = TextFragments.Test;
                     break;
+            }
+        }
+
+        private void textBoxInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (textBoxSource.Text.Equals(textBoxInput.Text))
+            {
+                easyCheck();
+                dispatcherTimer.Stop();
+                defaultValues();
             }
         }
         #endregion
