@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="Typing Test" Height="355" Width="525" ResizeMode="NoResize">
     <Grid Background="#FFE0DCDC" >
-        <TextBox x:Name="textBoxSource" HorizontalAlignment="Left" Height="115" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497"/>
+        <TextBox x:Name="textBoxSource" HorizontalAlignment="Left" Height="115" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497" IsUndoEnabled="False" IsReadOnly="True"/>
         <TextBox x:Name="textBoxInput" HorizontalAlignment="Left" Height="115" Margin="10,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497"/>
         <Button  x:Name="buttonStart" Content="Start" HorizontalAlignment="Left" Margin="352,250,0,0" VerticalAlignment="Top" Width="75" Click="buttonStart_Click"/>
         <Button  x:Name="buttonStop" Content="Stop" HorizontalAlignment="Left" Margin="432,250,0,0" VerticalAlignment="Top" Width="75" Click="buttonStop_Click"/>
         <TextBlock x:Name="labelTimer" Text="00:00:00" HorizontalAlignment="Left" Margin="237,250,0,0" VerticalAlignment="Top" Height="21" Width="52"/>
-        <ComboBox x:Name="comboBoxChooseExcerpt" HorizontalAlignment="Left" Margin="62,250,0,0" VerticalAlignment="Top" Width="102">
+        <ComboBox x:Name="comboBoxChooseExcerpt" HorizontalAlignment="Left" Margin="62,250,0,0" VerticalAlignment="Top" Width="102" SelectionChanged="comboBoxChooseExcerpt_SelectionChanged">
             <ComboBoxItem x:Name="cbi1" Content="Lord of the Rings"/>
             <ComboBoxItem x:Name="cbi2" Content="Harry Potter"/>
             <ComboBoxItem x:Name="cbi3" Content="Nausea"/>

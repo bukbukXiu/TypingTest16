@@ -46,6 +46,9 @@ namespace TypingTest16
             textBoxInput.Text = ""; //Deletes user-entered text from the input textbox after the test is finished
             comboBoxChooseExcerpt.IsEnabled = true;
             comboBoxChooseTime.IsEnabled = true;
+            comboBoxChooseExcerpt.SelectedIndex = -1;   //No text fragment is selected by default
+            buttonStart.IsEnabled = false;  //Start button is disabled unless user selects a text fragment
+            textBoxSource.Text = "Choose one of the excerpts below"; //Message for the user
         }
         #endregion
 
@@ -86,6 +89,26 @@ namespace TypingTest16
             time = TimeSpan.FromMinutes(comboBoxChooseTime.SelectedIndex + 1); //Notice that ComboBoxItem indexing starts from zero
             testTime = time;
             labelTimer.Text = time.ToString("c"); //"c" format specifier tells ToString method to use the standard hh:mm:ss form
+        }
+
+        private void comboBoxChooseExcerpt_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            buttonStart.IsEnabled = true; //Start button becomes enabled if user chooses the text fragment
+            switch (comboBoxChooseExcerpt.SelectedIndex)
+            {
+                case 0:
+                    textBoxSource.Text = TextFragments.LOTR;
+                    break;
+                case 1:
+                    textBoxSource.Text = TextFragments.HP;
+                    break;
+                case 2:
+                    textBoxSource.Text = TextFragments.Nausea;
+                    break;
+                case 3:
+                    textBoxSource.Text = TextFragments.Test;
+                    break;
+            }
         }
         #endregion
     }
