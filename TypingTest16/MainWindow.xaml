@@ -9,8 +9,8 @@
     <Grid Background="#FFE0DCDC" >
         <TextBox x:Name="textBoxSource" HorizontalAlignment="Left" Height="115" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497"/>
         <TextBox x:Name="textBoxInput" HorizontalAlignment="Left" Height="115" Margin="10,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497"/>
-        <Button  x:Name="buttonStart" Content="Start" HorizontalAlignment="Left" Margin="352,250,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button  x:Name="buttonStop" Content="Stop" HorizontalAlignment="Left" Margin="432,250,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button  x:Name="buttonStart" Content="Start" HorizontalAlignment="Left" Margin="352,250,0,0" VerticalAlignment="Top" Width="75" Click="buttonStart_Click"/>
+        <Button  x:Name="buttonStop" Content="Stop" HorizontalAlignment="Left" Margin="432,250,0,0" VerticalAlignment="Top" Width="75" Click="buttonStop_Click"/>
         <TextBlock x:Name="labelTimer" Text="00:00:00" HorizontalAlignment="Left" Margin="237,250,0,0" VerticalAlignment="Top" Height="21" Width="52"/>
         <ComboBox x:Name="comboBoxChooseExcerpt" HorizontalAlignment="Left" Margin="62,250,0,0" VerticalAlignment="Top" Width="102">
             <ComboBoxItem x:Name="cbi1" Content="Lord of the Rings"/>
@@ -18,7 +18,7 @@
             <ComboBoxItem x:Name="cbi3" Content="Nausea"/>
             <ComboBoxItem x:Name="cbi4" Content="Test"/>
         </ComboBox>
-        <ComboBox x:Name="comboBoxChooseTime" HorizontalAlignment="Left" Margin="62,276,0,0" VerticalAlignment="Top" Width="102">
+        <ComboBox x:Name="comboBoxChooseTime" HorizontalAlignment="Left" Margin="62,276,0,0" VerticalAlignment="Top" Width="102" SelectionChanged="comboBoxChooseTime_SelectionChanged">
             <ComboBoxItem x:Name="cb1" Content="1 minute"/>
             <ComboBoxItem x:Name="cb2" Content="2 minutes"/>
             <ComboBoxItem x:Name="cb3" Content="3 minutes"/>
